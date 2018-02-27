@@ -5,8 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KinectPhysiotherapy"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="MainWindow" Height="350" Width="525"
+        Closing = "MainWindow_Closing">
+    
     <Grid>
-        
+        <TextBlock x:Name="textBlock" Text="{Binding StatusText}" HorizontalAlignment="Left" TextWrapping="Wrap" VerticalAlignment="Top" Width="141"/>
+
     </Grid>
 </Window>

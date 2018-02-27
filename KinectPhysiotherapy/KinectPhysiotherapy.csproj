@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{234DB17F-5DE4-4BE0-B40D-04315E5C998C}</ProjectGuid>
+    <ProjectGuid>{D4517B66-5FDC-4105-843F-7EB1F55D0981}</ProjectGuid>
     <OutputType>WinExe</OutputType>
     <RootNamespace>KinectPhysiotherapy</RootNamespace>
     <AssemblyName>KinectPhysiotherapy</AssemblyName>
@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Microsoft.Kinect, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
