@@ -14,6 +14,10 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Microsoft.Kinect;
 using System.ComponentModel;
+using System.Windows.Media.Imaging;
+
+
+
 
 namespace KinectPhysiotherapy
 {
@@ -22,26 +26,32 @@ namespace KinectPhysiotherapy
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
-        private KinectSensor kinect = null;
-        private string statusText = null;
+        private KinectSensor sensor;
+        private string statusText;
 
         public MainWindow()
         {
-            this.kinect = KinectSensor.GetDefault();
-            this.kinect.IsAvailableChanged += this.Sensor_IsAvailableChanged;
-            this.StatusText = this.kinect.IsAvailable ? "Kinect available." : " Kinect is Unavailable"; 
-            this.DataContext = this;
-
             InitializeComponent();
-
-            this.kinect.Open();
+            this.Loaded += MainPage_Loaded;
         }
 
+
+        private void MainPage_Loaded(object sender, RoutedEventArgs e)
+        {
+            //Check if Kinect is available
+            this.sensor = KinectSensor.GetDefault();
+            this.sensor.IsAvailableChanged += this.Sensor_IsAvailableChanged;
+            this.StatusText = this.sensor.IsAvailable ? "Kinect available." : " Kinect is Unavailable";
+            this.DataContext = this;
+
+            this.sensor.Open();
+        }
+        #region IsAvailableInfo  
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void Sensor_IsAvailableChanged(object sender, IsAvailableChangedEventArgs e)
         {
-            this.StatusText = this.kinect.IsAvailable ? "Kinect available." : "Goodbie World! Kinect is Unavailable!";
+            this.StatusText = this.sensor.IsAvailable ? "Kinect available." : " Kinect is Unavailable";
         }
 
         public string StatusText
@@ -67,13 +77,18 @@ namespace KinectPhysiotherapy
 
         private void MainWindow_Closing(object sender, CancelEventArgs e)
         {
-            if (this.kinect != null) 
+            if (this.sensor != null) 
             {
-                this.kinect.Close();
-                this.kinect = null;
+                this.sensor.Close();
+                this.sensor = null;
             }
         }
 
+        #endregion
 
+        private void PhysiotherapistButton1_Click(object sender, RoutedEventArgs e)
+        {
+            Main.Content = new PhysiotherapistPage1();
+        }
     }
 }

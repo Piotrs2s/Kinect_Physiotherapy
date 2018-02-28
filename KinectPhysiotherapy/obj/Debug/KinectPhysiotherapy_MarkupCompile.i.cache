@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\KinectPhysiotherapy\KinectPhysiotherapy\obj\Debug\
+C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\Kinect_Physiotherapy\KinectPhysiotherapy\obj\Debug\
 KinectPhysiotherapy
 none
 false
 DEBUG;TRACE
-C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\KinectPhysiotherapy\KinectPhysiotherapy\App.xaml
-11151548125
+C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\Kinect_Physiotherapy\KinectPhysiotherapy\App.xaml
+2-1091047822
 
-91605647753
-14-572093232
-MainWindow.xaml;
+10511148252
+16-1330877358
+MainWindow.xaml;PhysiotherapistPage1.xaml;
 
-True
+False
 

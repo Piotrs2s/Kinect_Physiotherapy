@@ -32,3 +32,9 @@ C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\Kinect_Physiotherapy
 C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\Kinect_Physiotherapy\KinectPhysiotherapy\obj\Debug\KinectPhysiotherapy.csproj.CoreCompileInputs.cache
 C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\Kinect_Physiotherapy\KinectPhysiotherapy\obj\Debug\KinectPhysiotherapy.exe
 C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\Kinect_Physiotherapy\KinectPhysiotherapy\obj\Debug\KinectPhysiotherapy.pdb
+C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\Kinect_Physiotherapy\KinectPhysiotherapy\bin\Debug\Microsoft.Kinect.Tools.dll
+C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\Kinect_Physiotherapy\KinectPhysiotherapy\bin\Debug\Microsoft.Kinect.Wpf.Controls.dll
+C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\Kinect_Physiotherapy\KinectPhysiotherapy\bin\Debug\Microsoft.Kinect.Tools.xml
+C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\Kinect_Physiotherapy\KinectPhysiotherapy\bin\Debug\Microsoft.Kinect.Wpf.Controls.xml
+C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\Kinect_Physiotherapy\KinectPhysiotherapy\obj\Debug\PhysiotherapistPage1.g.cs
+C:\Users\Piotrek\Projekty\Programowanie\KinectPhysiotherapy\Kinect_Physiotherapy\KinectPhysiotherapy\obj\Debug\PhysiotherapistPage1.baml
