@@ -15,6 +15,8 @@ using System.Windows.Shapes;
 using Microsoft.Kinect;
 using System.ComponentModel;
 using System.Windows.Media.Imaging;
+using Microsoft.Kinect.Wpf.Controls;
+
 
 
 
@@ -26,18 +28,22 @@ namespace KinectPhysiotherapy
     /// </summary>
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
+        
         private KinectSensor sensor;
         private string statusText;
-
+        
         public MainWindow()
         {
-            InitializeComponent();
+            InitializeComponent();            
             this.Loaded += MainPage_Loaded;
         }
 
 
         private void MainPage_Loaded(object sender, RoutedEventArgs e)
         {
+            
+
+
             //Check if Kinect is available
             this.sensor = KinectSensor.GetDefault();
             this.sensor.IsAvailableChanged += this.Sensor_IsAvailableChanged;

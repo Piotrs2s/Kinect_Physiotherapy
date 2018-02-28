@@ -23,6 +23,8 @@ namespace KinectPhysiotherapy
     {
         KinectSensor _sensor;
         MultiSourceFrameReader _reader;
+        IList<Body> _bodies;
+        bool _displayBody = false;
 
         public PhysiotherapistPage1()
         {
@@ -37,55 +39,82 @@ namespace KinectPhysiotherapy
             {
                 _sensor.Open();
 
-                _reader = _sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Infrared);
-                //_reader = _sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Color |
-                //                             FrameSourceTypes.Depth |
-                //                             FrameSourceTypes.Infrared);
+                _reader = _sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Body);
+               
                 _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
+
+                _displayBody = !_displayBody;
             }
         }
 
         private void Reader_MultiSourceFrameArrived(object sender, MultiSourceFrameArrivedEventArgs e)
         {
+            // Get a reference to the multi-frame
             var reference = e.FrameReference.AcquireFrame();
 
-            // Open infrared frame
-            using (var frame = reference.InfraredFrameReference.AcquireFrame())
+            // Open color frame
+            using (var frame = reference.ColorFrameReference.AcquireFrame())
             {
                 if (frame != null)
-                {                   
-                        camera.Source = ToBitmap(frame);                   
+                {
+                   
+                        camera.Source = ToBitmap(frame);
+                   
+                }
+            }
+
+            // Body
+            using (var frame = reference.BodyFrameReference.AcquireFrame())
+            {
+                if (frame != null)
+                {
+                    canvas.Children.Clear();
+
+                    _bodies = new Body[frame.BodyFrameSource.BodyCount];
+
+                    frame.GetAndRefreshBodyData(_bodies);
+
+                    foreach (var body in _bodies)
+                    {
+                        if (body != null)
+                        {
+                            if (body.IsTracked)
+                            {
+                                // Draw skeleton.
+                                if (_displayBody)
+                                {
+                                    canvas.DrawSkeleton(body);
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }
 
-        private ImageSource ToBitmap(InfraredFrame frame)
+        private ImageSource ToBitmap(ColorFrame frame)
         {
             int width = frame.FrameDescription.Width;
             int height = frame.FrameDescription.Height;
             PixelFormat format = PixelFormats.Bgr32;
 
-            ushort[] infraredData = new ushort[width * height];
-            byte[] pixelData = new byte[width * height * (PixelFormats.Bgr32.BitsPerPixel + 7) / 8];
+            byte[] pixels = new byte[width * height * ((PixelFormats.Bgr32.BitsPerPixel + 7) / 8)];
 
-            frame.CopyFrameDataToArray(infraredData);
-
-            int colorIndex = 0;
-            for (int infraredIndex = 0; infraredIndex < infraredData.Length; ++infraredIndex)
+            if (frame.RawColorImageFormat == ColorImageFormat.Bgra)
             {
-                ushort ir = infraredData[infraredIndex];
-                byte intensity = (byte)(ir >> 8);
-
-                pixelData[colorIndex++] = intensity; // Blue
-                pixelData[colorIndex++] = intensity; // Green   
-                pixelData[colorIndex++] = intensity; // Red
-
-                ++colorIndex;
+                frame.CopyRawFrameDataToArray(pixels);
+            }
+            else
+            {
+                frame.CopyConvertedFrameDataToArray(pixels, ColorImageFormat.Bgra);
             }
 
             int stride = width * format.BitsPerPixel / 8;
 
-            return BitmapSource.Create(width, height, 96, 96, format, null, pixelData, stride);
+            return BitmapSource.Create(width, height, 96, 96, format, null, pixels, stride);
         }
+
+       
+
     }
 }

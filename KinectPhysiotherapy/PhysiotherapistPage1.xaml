@@ -9,9 +9,19 @@
       Title="PhysiotherapistPage1"  Height="720" Width="960" Background="LightGray">
 
     <Grid>
-        <Grid Margin="0,10,3.6,-19.6">
-        <Image Name="camera" Width="512" Height="424" Margin="398,52,46.4,253.6" />
-            <Button x:Name="Start" Content="Start recording"  Margin="54,542,670.4,117.6" Click="StartRecording" RenderTransformOrigin="0.5,0.5" />
+        <Grid Margin="398,52,46.4,253.6">
+            <Image Name="camera" Width="512" Height="424" Margin="3,0,0.6,-9.6" />
+            <Canvas Name="canvas" Margin="0,0,0.6,0.4"/>
+            <Button x:Name="Start" Content="Start recording"  Margin="-312,521,709.6,-141.6" Click="StartRecording" RenderTransformOrigin="0.5,0.5" >
+                <Button.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform ScaleY="-1" ScaleX="-1"/>
+                        <SkewTransform/>
+                        <RotateTransform Angle="179.597"/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Button.RenderTransform>
+            </Button>
 
         </Grid>
     </Grid>
