@@ -80,22 +80,55 @@ namespace KinectPhysiotherapy
                         {
                             if (body.IsTracked)
                             {
+                                DrawPoint(JointType.HandLeft, body,40,-30);
+                                DrawPoint(JointType.HandRight, body, -40,-30);
 
-                                Joint leftHandJoint = body.Joints[JointType.HandLeft];
-                                if (leftHandJoint.TrackingState == TrackingState.Tracked)
+                                DrawLine(JointType.HandLeft, JointType.HandRight, body);
+                            }
+                        }
+
+                        void DrawPoint(JointType jointType, Body body, int xShift, int yShift)
+                        {
+                            //Joint leftHandJoint = body.Joints[JointType.HandLeft];
+                            Joint joint = body.Joints[jointType];
+                            if (joint.TrackingState == TrackingState.Tracked)
+                            {
+                                DepthSpacePoint dsp = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint.Position);
+
+
+                                Ellipse Circle = new Ellipse() { Width = 30, Height = 30, Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) };
+
+
+                                bodyCanvas.Children.Add(Circle);
+                                Canvas.SetLeft(Circle, dsp.X + xShift);
+                                Canvas.SetTop(Circle, dsp.Y + yShift);
+                            }
+
+                        }
+                        
+                        void DrawLine(JointType joint1Type, JointType joint2Type, Body body)
+                        {
+                            Joint joint1 = body.Joints[joint1Type];
+                            Joint joint2 = body.Joints[joint2Type];
+                            if (joint1.TrackingState == TrackingState.Tracked && joint2.TrackingState == TrackingState.Tracked)
+                            {
+                                DepthSpacePoint dsp1 = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint1.Position);
+                                DepthSpacePoint dsp2 = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint1.Position);
+
+
+
+                                Line line = new Line
                                 {
-                                    DepthSpacePoint dsp = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(leftHandJoint.Position);
+                                    X1 = dsp1.X,
+                                    Y1 = dsp1.Y,
+                                    X2 = dsp2.X,
+                                    Y2 = dsp2.Y,
+                                    StrokeThickness = 8,
+                                    Stroke = new SolidColorBrush(Colors.Red)
+                                };
 
+                                bodyCanvas.Children.Add(line);
 
-                                    Ellipse LeftHandCircle = new Ellipse() { Width = 50, Height = 50, Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) };
-
-
-                                    bodyCanvas.Children.Add(LeftHandCircle);
-
-
-                                    Canvas.SetLeft(LeftHandCircle, dsp.X);
-                                    Canvas.SetTop(LeftHandCircle, dsp.Y - 100);
-                                }
                             }
                         }
 
