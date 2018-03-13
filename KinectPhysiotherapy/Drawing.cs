@@ -91,7 +91,7 @@ namespace KinectPhysiotherapy
         {
             if (joint.TrackingState == TrackingState.NotTracked) return;
 
-            joint = joint.ScaleTo(canvas.ActualWidth, canvas.ActualHeight);
+            //joint = joint.ScaleTo(canvas.ActualWidth, canvas.ActualHeight);
 
             Ellipse ellipse = new Ellipse
             {
@@ -110,8 +110,8 @@ namespace KinectPhysiotherapy
         {
             if (first.TrackingState == TrackingState.NotTracked || second.TrackingState == TrackingState.NotTracked) return;
 
-            first = first.ScaleTo(canvas.ActualWidth, canvas.ActualHeight);
-            second = second.ScaleTo(canvas.ActualWidth, canvas.ActualHeight);
+           // first = first.ScaleTo(canvas.ActualWidth, canvas.ActualHeight);
+           // second = second.ScaleTo(canvas.ActualWidth, canvas.ActualHeight);
 
             Line line = new Line
             {

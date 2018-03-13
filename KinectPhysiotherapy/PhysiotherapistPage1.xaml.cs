@@ -23,12 +23,15 @@ namespace KinectPhysiotherapy
     /// Interaction logic for PhysiotherapistPage1.xaml
     /// </summary>
     /// 
+
    
+
     public partial class PhysiotherapistPage1 : Page
     {
         
-        KinectSensor _sensor;
+       public KinectSensor _sensor;
         MultiSourceFrameReader _reader;
+
         //IList<Body> _bodies; // body ver 1
         Body[] bodies; //body ver 2
         bool _displayBody = false;
@@ -43,6 +46,7 @@ namespace KinectPhysiotherapy
         {
             _sensor = KinectSensor.GetDefault();
 
+           
             if (_sensor != null)
             {
                 _sensor.Open();
@@ -69,7 +73,7 @@ namespace KinectPhysiotherapy
                 {
                     if (frame != null && bodyFrame != null)
                     {
-
+                        
                         camera.Source = ToBitmap(frame);
 
                         //Body ver 2
@@ -80,57 +84,59 @@ namespace KinectPhysiotherapy
                         {
                             if (body.IsTracked)
                             {
-                                DrawPoint(JointType.HandLeft, body,40,-30);
-                                DrawPoint(JointType.HandRight, body, -40,-30);
 
-                                DrawLine(JointType.HandLeft, JointType.HandRight, body);
+                                //SkeletonDrawing.DrawPoint(JointType.HandLeft, body,_sensor, bodyCanvas);
+                                //SkeletonDrawing.DrawPoint(JointType.HandRight, body, _sensor, bodyCanvas);
+
+                                //SkeletonDrawing.DrawLine(JointType.HandLeft, JointType.HandRight, body, bodyCanvas);
+                                SkeletonDrawing.DrawSceleton(body, bodyCanvas);
                             }
                         }
 
-                        void DrawPoint(JointType jointType, Body body, int xShift, int yShift)
-                        {
-                            //Joint leftHandJoint = body.Joints[JointType.HandLeft];
-                            Joint joint = body.Joints[jointType];
-                            if (joint.TrackingState == TrackingState.Tracked)
-                            {
-                                DepthSpacePoint dsp = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint.Position);
+                        //void DrawPoint(JointType jointType, Body body, int xShift, int yShift)
+                        //{
+                        //    //Joint leftHandJoint = body.Joints[JointType.HandLeft];
+                        //    Joint joint = body.Joints[jointType];
+                        //    if (joint.TrackingState == TrackingState.Tracked)
+                        //    {
+                        //        DepthSpacePoint dsp = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint.Position);
 
 
-                                Ellipse Circle = new Ellipse() { Width = 30, Height = 30, Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) };
+                        //        Ellipse Circle = new Ellipse() { Width = 30, Height = 30, Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) };
 
 
-                                bodyCanvas.Children.Add(Circle);
-                                Canvas.SetLeft(Circle, dsp.X + xShift);
-                                Canvas.SetTop(Circle, dsp.Y + yShift);
-                            }
+                        //        bodyCanvas.Children.Add(Circle);
+                        //        Canvas.SetLeft(Circle, dsp.X + xShift);
+                        //        Canvas.SetTop(Circle, dsp.Y + yShift);
+                        //    }
 
-                        }
+                        //}
                         
-                        void DrawLine(JointType joint1Type, JointType joint2Type, Body body)
-                        {
-                            Joint joint1 = body.Joints[joint1Type];
-                            Joint joint2 = body.Joints[joint2Type];
-                            if (joint1.TrackingState == TrackingState.Tracked && joint2.TrackingState == TrackingState.Tracked)
-                            {
-                                DepthSpacePoint dsp1 = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint1.Position);
-                                DepthSpacePoint dsp2 = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint1.Position);
+                        //void DrawLine(JointType joint1Type, JointType joint2Type, Body body)
+                        //{
+                        //    Joint joint1 = body.Joints[joint1Type];
+                        //    Joint joint2 = body.Joints[joint2Type];
+                        //    if (joint1.TrackingState == TrackingState.Tracked && joint2.TrackingState == TrackingState.Tracked)
+                        //    {
+                        //        DepthSpacePoint dsp1 = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint1.Position);
+                        //        DepthSpacePoint dsp2 = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint1.Position);
 
 
 
-                                Line line = new Line
-                                {
-                                    X1 = dsp1.X,
-                                    Y1 = dsp1.Y,
-                                    X2 = dsp2.X,
-                                    Y2 = dsp2.Y,
-                                    StrokeThickness = 8,
-                                    Stroke = new SolidColorBrush(Colors.Red)
-                                };
+                        //        Line line = new Line
+                        //        {
+                        //            X1 = dsp1.X,
+                        //            Y1 = dsp1.Y,
+                        //            X2 = dsp2.X,
+                        //            Y2 = dsp2.Y,
+                        //            StrokeThickness = 8,
+                        //            Stroke = new SolidColorBrush(Colors.Red)
+                        //        };
 
-                                bodyCanvas.Children.Add(line);
+                        //        bodyCanvas.Children.Add(line);
 
-                            }
-                        }
+                        //    }
+                        //}
 
                     }
                 }
