@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -19,17 +20,10 @@ using Microsoft.Kinect;
 
 namespace KinectPhysiotherapy
 {
-    /// <summary>
-    /// Interaction logic for PhysiotherapistPage1.xaml
-    /// </summary>
-    /// 
-
-   
-
     public partial class PhysiotherapistPage1 : Page
     {
         
-       public KinectSensor _sensor;
+        KinectSensor _sensor;
         MultiSourceFrameReader _reader;
 
         //IList<Body> _bodies; // body ver 1
@@ -53,7 +47,11 @@ namespace KinectPhysiotherapy
 
                 bodies = new Body[6]; //Body ver 2
                 _reader = _sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Body);
-               
+
+
+                var Generator = new BaloonsGenerator(baloonCanvas, 30, 30);
+                Generator.Start();
+
                 _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
 
                 _displayBody = !_displayBody;
@@ -66,85 +64,44 @@ namespace KinectPhysiotherapy
             var reference = e.FrameReference.AcquireFrame();
             //Body ver 2 reference
             //var bodyFrame = reference.BodyFrameReference.AcquireFrame();
+
+            
+            
+
             using (BodyFrame bodyFrame = reference.BodyFrameReference.AcquireFrame())
             {
                 // Open color frame
                 using (var frame = reference.ColorFrameReference.AcquireFrame())
                 {
                     if (frame != null && bodyFrame != null)
-                    {
-                        
+                    { 
                         camera.Source = ToBitmap(frame);
 
                         //Body ver 2
                         bodyFrame.GetAndRefreshBodyData(bodies);
-                        bodyCanvas.Children.Clear();
-
-                        foreach (var body in bodies)
-                        {
-                            if (body.IsTracked)
-                            {
-
-                                //SkeletonDrawing.DrawPoint(JointType.HandLeft, body,_sensor, bodyCanvas);
-                                //SkeletonDrawing.DrawPoint(JointType.HandRight, body, _sensor, bodyCanvas);
-
-                                //SkeletonDrawing.DrawLine(JointType.HandLeft, JointType.HandRight, body, bodyCanvas);
-                                SkeletonDrawing.DrawSceleton(body, bodyCanvas);
-                            }
-                        }
-
-                        //void DrawPoint(JointType jointType, Body body, int xShift, int yShift)
+                        imgCanvas.Children.Clear();
+                        #region BodyDrawing
+                        //BODY DRAWING
+                        //foreach (var body in bodies)
                         //{
-                        //    //Joint leftHandJoint = body.Joints[JointType.HandLeft];
-                        //    Joint joint = body.Joints[jointType];
-                        //    if (joint.TrackingState == TrackingState.Tracked)
+                        //    if (body.IsTracked)
                         //    {
-                        //        DepthSpacePoint dsp = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint.Position);
+                        //        //SkeletonDrawing.DrawPoint(JointType.HandLeft, body,_sensor, bodyCanvas);
+                        //        //SkeletonDrawing.DrawPoint(JointType.HandRight, body, _sensor, bodyCanvas);
 
-
-                        //        Ellipse Circle = new Ellipse() { Width = 30, Height = 30, Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) };
-
-
-                        //        bodyCanvas.Children.Add(Circle);
-                        //        Canvas.SetLeft(Circle, dsp.X + xShift);
-                        //        Canvas.SetTop(Circle, dsp.Y + yShift);
-                        //    }
-
-                        //}
-                        
-                        //void DrawLine(JointType joint1Type, JointType joint2Type, Body body)
-                        //{
-                        //    Joint joint1 = body.Joints[joint1Type];
-                        //    Joint joint2 = body.Joints[joint2Type];
-                        //    if (joint1.TrackingState == TrackingState.Tracked && joint2.TrackingState == TrackingState.Tracked)
-                        //    {
-                        //        DepthSpacePoint dsp1 = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint1.Position);
-                        //        DepthSpacePoint dsp2 = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint1.Position);
-
-
-
-                        //        Line line = new Line
-                        //        {
-                        //            X1 = dsp1.X,
-                        //            Y1 = dsp1.Y,
-                        //            X2 = dsp2.X,
-                        //            Y2 = dsp2.Y,
-                        //            StrokeThickness = 8,
-                        //            Stroke = new SolidColorBrush(Colors.Red)
-                        //        };
-
-                        //        bodyCanvas.Children.Add(line);
+                        //        //SkeletonDrawing.DrawLine(JointType.HandLeft, JointType.HandRight, body, bodyCanvas);
+                        //        SkeletonDrawing.DrawSceleton(body, imgCanvas);
 
                         //    }
                         //}
-
+                        #endregion
                     }
                 }
             }
-           
 
-            
 
+
+            #region body v1
             // Body
             //using (var frame = reference.BodyFrameReference.AcquireFrame())
             //{
@@ -172,6 +129,7 @@ namespace KinectPhysiotherapy
             //        }
             //    }
             //}
+            #endregion
         }
 
         private ImageSource ToBitmap(ColorFrame frame)
