@@ -35,7 +35,7 @@ namespace KinectPhysiotherapy
 
         public BaloonsGenerator(Canvas canv, int frequency, int speed)
         {
-
+ 
             this._frequency = frequency;
             this._speed = speed;
             this._frequencyCounter = 0;
@@ -43,6 +43,7 @@ namespace KinectPhysiotherapy
 
             this._rand = new Random();
             this.canvas = canv;
+
             this.BaloonsList = new List<Ellipse>();
 
             this._dispatcherTimer = new DispatcherTimer();
@@ -64,8 +65,8 @@ namespace KinectPhysiotherapy
             _frequencyCounter++;
             if (_frequencyCounter == _frequency)
             {
-                var baloon = new Ellipse() { Height = 20, Width = 20, Fill = new SolidColorBrush(Color.FromArgb(Convert.ToByte(_rand.Next(0, 255)), Convert.ToByte(_rand.Next(0, 255)), Convert.ToByte(_rand.Next(0, 255)), 0)) };
-                Canvas.SetBottom(baloon, 0);
+                var baloon = new Ellipse() { Height = 20, Width = 20, Fill = new SolidColorBrush(Color.FromArgb(255, Convert.ToByte(_rand.Next(0, 255)), Convert.ToByte(_rand.Next(0, 255)), Convert.ToByte(_rand.Next(0, 255)))) };
+                Canvas.SetBottom(baloon, 0);                
                 Canvas.SetLeft(baloon, _rand.Next(0, Convert.ToInt32(canvas.Width)));
                 canvas.Children.Add(baloon);
                 BaloonsList.Add(baloon);

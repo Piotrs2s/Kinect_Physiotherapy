@@ -13,41 +13,21 @@ namespace KinectPhysiotherapy
     /// </summary>
     /// 
 
-    public class Baloon
+    public class Baloon : Shape
     {
-        public Point coordinates;
-        public Canvas canvas;
-        public Random random;
+      
+        public Random _rand;
         public Ellipse baloon;
+        protected override Geometry DefiningGeometry { get; }
 
 
-        public Baloon(Canvas canvas)
+        public Baloon()
         {
-            this.canvas = canvas;
-            this.baloon = new Ellipse() { Width = 20, Height = 20, Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) };
-
-            this.random = new Random();
-            this.coordinates = new Point(random.Next(Convert.ToInt32(canvas.Width)), 0.5);
-            canvas.Children.Add(baloon);
+            //this._rand = new Random();
+            //this.baloon = new Ellipse() { Height = 20, Width = 20, Fill = new SolidColorBrush(Color.FromArgb(Convert.ToByte(_rand.Next(0, 255)), Convert.ToByte(_rand.Next(0, 255)), Convert.ToByte(_rand.Next(0, 255)), 0)) };            
         }
 
         
-
-        public void MoveBaloon()
-        {
-
-
-            while (coordinates.Y < canvas.Height)
-            {
-                canvas.Children.Clear();
-                Canvas.SetTop(baloon, coordinates.Y);
-                Canvas.SetLeft(baloon, coordinates.X);
-
-                canvas.Children.Add(baloon);
-                coordinates.Y = coordinates.Y + 50;
-                //Thread.Sleep(1000);
-            }
-                       
-        }
+        
     }
 }

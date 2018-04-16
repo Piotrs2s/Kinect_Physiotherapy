@@ -20,19 +20,31 @@ using Microsoft.Kinect;
 
 namespace KinectPhysiotherapy
 {
+
+
     public partial class PhysiotherapistPage1 : Page
     {
-        
+        // BaloonsGenerator Generator;
+        public BaloonsGenerator Generator;
+        int HittedBaloonsCounter;
+
         KinectSensor _sensor;
         MultiSourceFrameReader _reader;
+
+
 
         //IList<Body> _bodies; // body ver 1
         Body[] bodies; //body ver 2
         bool _displayBody = false;
 
+      
+
         public PhysiotherapistPage1()
         {
             InitializeComponent();
+            Generator = new BaloonsGenerator(baloonCanvas, 150, 60);
+            HittedBaloonsCounter = 0;
+
         }
 
         //Start recording button
@@ -40,7 +52,8 @@ namespace KinectPhysiotherapy
         {
             _sensor = KinectSensor.GetDefault();
 
-           
+            Generator.Start();
+
             if (_sensor != null)
             {
                 _sensor.Open();
@@ -49,8 +62,8 @@ namespace KinectPhysiotherapy
                 _reader = _sensor.OpenMultiSourceFrameReader(FrameSourceTypes.Color | FrameSourceTypes.Body);
 
 
-                var Generator = new BaloonsGenerator(baloonCanvas, 30, 30);
-                Generator.Start();
+               
+
 
                 _reader.MultiSourceFrameArrived += Reader_MultiSourceFrameArrived;
 
@@ -82,19 +95,41 @@ namespace KinectPhysiotherapy
                         imgCanvas.Children.Clear();
                         #region BodyDrawing
                         //BODY DRAWING
-                        //foreach (var body in bodies)
-                        //{
-                        //    if (body.IsTracked)
-                        //    {
-                        //        //SkeletonDrawing.DrawPoint(JointType.HandLeft, body,_sensor, bodyCanvas);
-                        //        //SkeletonDrawing.DrawPoint(JointType.HandRight, body, _sensor, bodyCanvas);
+                        foreach (var body in bodies)
+                        {
+                            if (body.IsTracked)
+                            {
+                                textBox.Text = "You got: " + HittedBaloonsCounter;
+                                Joint jointHandLeft = body.Joints[JointType.HandLeft];
 
-                        //        //SkeletonDrawing.DrawLine(JointType.HandLeft, JointType.HandRight, body, bodyCanvas);
-                        //        SkeletonDrawing.DrawSceleton(body, imgCanvas);
+                                textBoxHandPosition.Text = String.Format("{0:N2}", jointHandLeft.Position.X) + " : " + String.Format("{0:N2}", jointHandLeft.Position.Y);
 
-                        //    }
-                        //}
+                                foreach (var b in Generator.BaloonsList)
+                                {
+                                    textBoxBaloonPosition.Text = Canvas.GetLeft(b) + " : " + Canvas.GetBottom(b);
+                                    if (/*jointHandLeft.Position.X >= Canvas.GetBottom(b) - 15 && jointHandLeft.Position.X <= Canvas.GetBottom(b) + 15 && */jointHandLeft.Position.Y >= Canvas.GetBottom(b) - 15 && jointHandLeft.Position.Y <= Canvas.GetBottom(b) + 15)
+                                    {
+                                        HittedBaloonsCounter++;
+                                        textBox.Text = "You got: " + HittedBaloonsCounter;
+
+
+                                    }
+                                }
+
+
+                                #region SkeletonDrawing
+                                //SkeletonDrawing.DrawPoint(JointType.HandLeft, body, _sensor, bodyCanvas);
+                                //SkeletonDrawing.DrawPoint(JointType.HandRight, body, _sensor, bodyCanvas);
+
+                                //SkeletonDrawing.DrawLine(JointType.HandLeft, JointType.HandRight, body, bodyCanvas);
+                                SkeletonDrawing.DrawSceleton(body, imgCanvas);
+                                #endregion
+                            }
+
+                        }
                         #endregion
+
+
                     }
                 }
             }

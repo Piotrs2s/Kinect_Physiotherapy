@@ -48,6 +48,10 @@ namespace KinectPhysiotherapy
         {
             Joint joint1 = body.Joints[joint1Type];
             Joint joint2 = body.Joints[joint2Type];
+
+            Joint joint3 = body.Joints[JointType.HandLeft];
+
+
             joint1 = ScaleTo(joint1, bodyCanvas.ActualWidth, bodyCanvas.ActualHeight);
             joint2 = ScaleTo(joint2, bodyCanvas.ActualWidth, bodyCanvas.ActualHeight);
             if (joint1.TrackingState == TrackingState.Tracked && joint2.TrackingState == TrackingState.Tracked)
@@ -98,15 +102,15 @@ namespace KinectPhysiotherapy
             DrawLine(JointType.HandRight, JointType.HandTipRight, body, bodyCanvas);
             DrawLine(JointType.WristRight, JointType.ThumbRight, body, bodyCanvas);
             //Left leg
-            DrawLine(JointType.SpineBase, JointType.HipLeft, body, bodyCanvas);
-            DrawLine(JointType.HipLeft, JointType.KneeLeft, body, bodyCanvas);
-            DrawLine(JointType.KneeLeft, JointType.AnkleLeft, body, bodyCanvas);
-            DrawLine(JointType.AnkleLeft, JointType.FootLeft, body, bodyCanvas);
+            //DrawLine(JointType.SpineBase, JointType.HipLeft, body, bodyCanvas);
+            //DrawLine(JointType.HipLeft, JointType.KneeLeft, body, bodyCanvas);
+            //DrawLine(JointType.KneeLeft, JointType.AnkleLeft, body, bodyCanvas);
+            //DrawLine(JointType.AnkleLeft, JointType.FootLeft, body, bodyCanvas);
             //Right leg
-            DrawLine(JointType.SpineBase, JointType.HipRight, body, bodyCanvas);
-            DrawLine(JointType.HipRight, JointType.KneeRight, body, bodyCanvas);
-            DrawLine(JointType.KneeRight, JointType.AnkleRight, body, bodyCanvas);
-            DrawLine(JointType.AnkleRight, JointType.FootRight, body, bodyCanvas);
+            //DrawLine(JointType.SpineBase, JointType.HipRight, body, bodyCanvas);
+            //DrawLine(JointType.HipRight, JointType.KneeRight, body, bodyCanvas);
+            //DrawLine(JointType.KneeRight, JointType.AnkleRight, body, bodyCanvas);
+            //DrawLine(JointType.AnkleRight, JointType.FootRight, body, bodyCanvas);
 
         }
 
