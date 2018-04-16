@@ -58,6 +58,7 @@
     </ApplicationDefinition>
     <Compile Include="Baloon.cs" />
     <Compile Include="BaloonsGenerator.cs" />
+    <Compile Include="CoordinatesConverter.cs" />
     <Compile Include="SkeletonDrawing.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>

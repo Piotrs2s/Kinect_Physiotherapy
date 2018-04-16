@@ -21,7 +21,6 @@ using Microsoft.Kinect;
 namespace KinectPhysiotherapy
 {
 
-
     public partial class PhysiotherapistPage1 : Page
     {
         // BaloonsGenerator Generator;
@@ -42,7 +41,7 @@ namespace KinectPhysiotherapy
         public PhysiotherapistPage1()
         {
             InitializeComponent();
-            Generator = new BaloonsGenerator(baloonCanvas, 150, 60);
+            Generator = new BaloonsGenerator(baloonCanvas, 300, 60);
             HittedBaloonsCounter = 0;
 
         }
@@ -103,17 +102,26 @@ namespace KinectPhysiotherapy
                                 Joint jointHandLeft = body.Joints[JointType.HandLeft];
 
                                 textBoxHandPosition.Text = String.Format("{0:N2}", jointHandLeft.Position.X) + " : " + String.Format("{0:N2}", jointHandLeft.Position.Y);
-
+                                
                                 foreach (var b in Generator.BaloonsList)
                                 {
-                                    textBoxBaloonPosition.Text = Canvas.GetLeft(b) + " : " + Canvas.GetBottom(b);
-                                    if (/*jointHandLeft.Position.X >= Canvas.GetBottom(b) - 15 && jointHandLeft.Position.X <= Canvas.GetBottom(b) + 15 && */jointHandLeft.Position.Y >= Canvas.GetBottom(b) - 15 && jointHandLeft.Position.Y <= Canvas.GetBottom(b) + 15)
+                                    //textBoxBaloonPosition.Text = Canvas.GetLeft(b) + " : " + Canvas.GetBottom(b);
+                                    textBoxBaloonPosition.Text = CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(b)) + " : "
+                                        + CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(b));
+
+                                    if (jointHandLeft.Position.X >= CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(b)) - 0.1 && 
+                                        jointHandLeft.Position.X <= CoordinatesConverter.convertX(baloonCanvas, Canvas.GetRight(b)) + 0.1 && 
+                                        jointHandLeft.Position.Y >= CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(b)) - 0.1 &&
+                                        jointHandLeft.Position.Y <= CoordinatesConverter.convertY(baloonCanvas, Canvas.GetTop(b)) + 0.1)
                                     {
                                         HittedBaloonsCounter++;
                                         textBox.Text = "You got: " + HittedBaloonsCounter;
-
-
                                     }
+
+                                    var testEllipse = new Ellipse() { Height = 20, Width = 20, Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) };
+                                    Canvas.SetBottom(testEllipse, 0);
+                                    Canvas.SetLeft(testEllipse, 0);
+
                                 }
 
 
@@ -171,6 +179,8 @@ namespace KinectPhysiotherapy
         {
             int width = frame.FrameDescription.Width;
             int height = frame.FrameDescription.Height;
+
+
             PixelFormat format = PixelFormats.Bgr32;
 
             byte[] pixels = new byte[width * height * ((PixelFormats.Bgr32.BitsPerPixel + 7) / 8)];

@@ -66,11 +66,13 @@ namespace KinectPhysiotherapy
             if (_frequencyCounter == _frequency)
             {
                 var baloon = new Ellipse() { Height = 20, Width = 20, Fill = new SolidColorBrush(Color.FromArgb(255, Convert.ToByte(_rand.Next(0, 255)), Convert.ToByte(_rand.Next(0, 255)), Convert.ToByte(_rand.Next(0, 255)))) };
-                Canvas.SetBottom(baloon, 0);                
+                Canvas.SetBottom(baloon, 0);
                 Canvas.SetLeft(baloon, _rand.Next(0, Convert.ToInt32(canvas.Width)));
+
                 canvas.Children.Add(baloon);
                 BaloonsList.Add(baloon);
                 baloonsFloated++;
+
 
                 _frequencyCounter = 0;
             }
