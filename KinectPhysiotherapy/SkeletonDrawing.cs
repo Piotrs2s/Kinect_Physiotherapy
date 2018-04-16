@@ -83,21 +83,21 @@ namespace KinectPhysiotherapy
         static public void DrawSceleton(Body body,  Canvas bodyCanvas)
         {
             //Spine
-            DrawLine(JointType.Head, JointType.Neck, body, bodyCanvas);
-            DrawLine(JointType.Neck, JointType.SpineShoulder, body, bodyCanvas);
-            DrawLine(JointType.SpineShoulder, JointType.SpineMid, body, bodyCanvas);
-            DrawLine(JointType.SpineMid, JointType.SpineBase, body, bodyCanvas);
+            //DrawLine(JointType.Head, JointType.Neck, body, bodyCanvas);
+            //DrawLine(JointType.Neck, JointType.SpineShoulder, body, bodyCanvas);
+            //DrawLine(JointType.SpineShoulder, JointType.SpineMid, body, bodyCanvas);
+            //DrawLine(JointType.SpineMid, JointType.SpineBase, body, bodyCanvas);
             //Left hand
-            DrawLine(JointType.SpineShoulder, JointType.ShoulderLeft, body, bodyCanvas);
-            DrawLine(JointType.ShoulderLeft, JointType.ElbowLeft, body, bodyCanvas);
-            DrawLine(JointType.ElbowLeft, JointType.WristLeft, body, bodyCanvas);
+            //DrawLine(JointType.SpineShoulder, JointType.ShoulderLeft, body, bodyCanvas);
+            //DrawLine(JointType.ShoulderLeft, JointType.ElbowLeft, body, bodyCanvas);
+            //DrawLine(JointType.ElbowLeft, JointType.WristLeft, body, bodyCanvas);
             DrawLine(JointType.WristLeft, JointType.HandLeft, body, bodyCanvas);
             DrawLine(JointType.HandLeft, JointType.HandTipLeft, body, bodyCanvas);
             DrawLine(JointType.WristLeft, JointType.ThumbLeft, body, bodyCanvas);
             //Right hand
-            DrawLine(JointType.SpineShoulder, JointType.ShoulderRight, body, bodyCanvas);
-            DrawLine(JointType.ShoulderRight, JointType.ElbowRight, body, bodyCanvas);
-            DrawLine(JointType.ElbowRight, JointType.WristRight, body, bodyCanvas);
+            //DrawLine(JointType.SpineShoulder, JointType.ShoulderRight, body, bodyCanvas);
+            //DrawLine(JointType.ShoulderRight, JointType.ElbowRight, body, bodyCanvas);
+            //DrawLine(JointType.ElbowRight, JointType.WristRight, body, bodyCanvas);
             DrawLine(JointType.WristRight, JointType.HandRight, body, bodyCanvas);
             DrawLine(JointType.HandRight, JointType.HandTipRight, body, bodyCanvas);
             DrawLine(JointType.WristRight, JointType.ThumbRight, body, bodyCanvas);

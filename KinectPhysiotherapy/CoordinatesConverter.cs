@@ -36,7 +36,7 @@ namespace KinectPhysiotherapy
 
             if (xCoordinate <= halfOfCanvas)
             {
-                double coordinate = xCoordinate;
+                double coordinate = halfOfCanvas - xCoordinate;
                 double valueProcentage = coordinate / halfOfCanvas;
 
                 return -valueProcentage;
@@ -59,7 +59,7 @@ namespace KinectPhysiotherapy
 
             if (yCoordinate <= halfOfCanvas)
             {
-                double coordinate = yCoordinate;
+                double coordinate = halfOfCanvas - yCoordinate;
                 double valueProcentage = coordinate / halfOfCanvas;
 
                 return -valueProcentage;

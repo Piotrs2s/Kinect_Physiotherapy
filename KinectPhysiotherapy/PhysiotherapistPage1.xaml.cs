@@ -25,7 +25,7 @@ namespace KinectPhysiotherapy
     {
         // BaloonsGenerator Generator;
         public BaloonsGenerator Generator;
-        int HittedBaloonsCounter;
+
 
         KinectSensor _sensor;
         MultiSourceFrameReader _reader;
@@ -41,8 +41,8 @@ namespace KinectPhysiotherapy
         public PhysiotherapistPage1()
         {
             InitializeComponent();
-            Generator = new BaloonsGenerator(baloonCanvas, 300, 60);
-            HittedBaloonsCounter = 0;
+            Generator = new BaloonsGenerator(baloonCanvas, 40, 30); //frequency and speed of baloons (ticks to next baloon and  length of timer tick) 
+
 
         }
 
@@ -98,39 +98,77 @@ namespace KinectPhysiotherapy
                         {
                             if (body.IsTracked)
                             {
-                                textBox.Text = "You got: " + HittedBaloonsCounter;
+                                textBox_baloonsHitted.Text = "Hitted: " + Generator.baloonsHitted;
+                                textBox_baloonsFloated.Text = "Floated: " + Generator.baloonsFloated;
+
+                                if (Generator.baloonsFloated>0)
+                                {
+                                    double percent = Generator.baloonsHitted * 100 / Generator.baloonsFloated;
+                                    textBox_percent.Text = percent + "%";
+                                }
+                                
+
                                 Joint jointHandLeft = body.Joints[JointType.HandLeft];
+                                Joint jointHandRight = body.Joints[JointType.HandRight];
 
                                 textBoxHandPosition.Text = String.Format("{0:N2}", jointHandLeft.Position.X) + " : " + String.Format("{0:N2}", jointHandLeft.Position.Y);
-                                
-                                foreach (var b in Generator.BaloonsList)
+                                #region foreachVersion
+                                //foreach (var b in Generator.BaloonsList)
+                                //{
+                                //    //textBoxBaloonPosition.Text = Canvas.GetLeft(b) + " : " + Canvas.GetBottom(b);
+                                //    textBoxBaloonPosition.Text = CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(b)) + " : "
+                                //        + CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(b));
+
+                                //    if (jointHandLeft.Position.X >= CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(b)) - 0.1 && 
+                                //        jointHandLeft.Position.X <= CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(b)) + 0.1 && 
+                                //        jointHandLeft.Position.Y >= CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(b)) - 0.1 &&
+                                //        jointHandLeft.Position.Y <= CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(b)) + 0.1 ||
+
+                                //        jointHandRight.Position.X >= CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(b)) - 0.1 &&
+                                //        jointHandRight.Position.X <= CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(b)) + 0.1 &&
+                                //        jointHandRight.Position.Y >= CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(b)) - 0.1 &&
+                                //        jointHandRight.Position.Y <= CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(b)) + 0.1)
+                                //    {
+                                //        b.Fill = new SolidColorBrush(Color.FromRgb(255, 0, 0));
+                                //        HittedBaloonsCounter++;
+                                //        textBox.Text = "Counter: " + HittedBaloonsCounter;
+
+                                //    }
+                                //}
+                                #endregion
+                                for (int i = Generator.BaloonsList.Count - 1; i >= 0; i--)
                                 {
-                                    //textBoxBaloonPosition.Text = Canvas.GetLeft(b) + " : " + Canvas.GetBottom(b);
-                                    textBoxBaloonPosition.Text = CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(b)) + " : "
-                                        + CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(b));
+                                    textBoxBaloonPosition.Text = CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(Generator.BaloonsList[i])) + " : "
+                                        + CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(Generator.BaloonsList[i]));
 
-                                    if (jointHandLeft.Position.X >= CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(b)) - 0.1 && 
-                                        jointHandLeft.Position.X <= CoordinatesConverter.convertX(baloonCanvas, Canvas.GetRight(b)) + 0.1 && 
-                                        jointHandLeft.Position.Y >= CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(b)) - 0.1 &&
-                                        jointHandLeft.Position.Y <= CoordinatesConverter.convertY(baloonCanvas, Canvas.GetTop(b)) + 0.1)
+                                    if (jointHandLeft.Position.X >= CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(Generator.BaloonsList[i])) - 0.1 &&
+                                        jointHandLeft.Position.X <= CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(Generator.BaloonsList[i])) + 0.1 &&
+                                        jointHandLeft.Position.Y >= CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(Generator.BaloonsList[i])) - 0.1 &&
+                                        jointHandLeft.Position.Y <= CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(Generator.BaloonsList[i])) + 0.1 ||
+
+                                        jointHandRight.Position.X >= CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(Generator.BaloonsList[i])) - 0.1 &&
+                                        jointHandRight.Position.X <= CoordinatesConverter.convertX(baloonCanvas, Canvas.GetLeft(Generator.BaloonsList[i])) + 0.1 &&
+                                        jointHandRight.Position.Y >= CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(Generator.BaloonsList[i])) - 0.1 &&
+                                        jointHandRight.Position.Y <= CoordinatesConverter.convertY(baloonCanvas, Canvas.GetBottom(Generator.BaloonsList[i])) + 0.1)
                                     {
-                                        HittedBaloonsCounter++;
-                                        textBox.Text = "You got: " + HittedBaloonsCounter;
+                                        Generator.baloonsHitted++;
+                                        Generator.DestroyBaloon(Generator.BaloonsList[i]);
+
+                                        #region withoutExplosion
+
+                                        //Generator.BaloonsList.Remove(Generator.BaloonsList[i]);
+                                        //Generator.baloonsHitted++;
+
+                                        #endregion
                                     }
-
-                                    var testEllipse = new Ellipse() { Height = 20, Width = 20, Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) };
-                                    Canvas.SetBottom(testEllipse, 0);
-                                    Canvas.SetLeft(testEllipse, 0);
-
                                 }
 
+                                    #region SkeletonDrawing
+                                    //SkeletonDrawing.DrawPoint(JointType.HandLeft, body, _sensor, bodyCanvas);
+                                    //SkeletonDrawing.DrawPoint(JointType.HandRight, body, _sensor, bodyCanvas);
 
-                                #region SkeletonDrawing
-                                //SkeletonDrawing.DrawPoint(JointType.HandLeft, body, _sensor, bodyCanvas);
-                                //SkeletonDrawing.DrawPoint(JointType.HandRight, body, _sensor, bodyCanvas);
-
-                                //SkeletonDrawing.DrawLine(JointType.HandLeft, JointType.HandRight, body, bodyCanvas);
-                                SkeletonDrawing.DrawSceleton(body, imgCanvas);
+                                    //SkeletonDrawing.DrawLine(JointType.HandLeft, JointType.HandRight, body, bodyCanvas);
+                                    //SkeletonDrawing.DrawSceleton(body, imgCanvas);
                                 #endregion
                             }
 
