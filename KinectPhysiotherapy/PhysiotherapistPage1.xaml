@@ -8,15 +8,23 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="PhysiotherapistPage1"  Height="720" Width="960" Background="LightGray">
 
-    <Grid>
+    <Grid Margin="10 0 10 0">
+        <Grid.RowDefinitions>
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="*" />
+      <RowDefinition Height="Auto" />
+      <RowDefinition Height="Auto" />
+    </Grid.RowDefinitions>
 
         <!-- <Viewbox HorizontalAlignment="Center" RenderTransformOrigin="0.481,0.509" Margin="0,0,0,10" Width="960"/> -->
 
-        <Image x:Name="camera" RenderTransformOrigin="0.5,0.5"  Width="512" Height="424" Margin="221,96,204,178"  />
+        <Image x:Name="camera" RenderTransformOrigin="0.5,0.5"   Margin="221,96,204,178" Width="512" Height="424"   />
+        <!--Width="512" Height="424"-->
         <Canvas Name="imgCanvas" Width="512" Height="424" Margin="221,96,204,178" />
         <Canvas Name="baloonCanvas" Width="512" Height="424" Margin="221,96,204,178"  RenderTransformOrigin="0.5,0.5" />
         <Canvas Name="bodyCanvas" Width="512" Height="424" Margin="221,96,204,178" />
-        <Button x:Name="Start" Content="Start"  Margin="669,592,49,67" Click="StartRecording" RenderTransformOrigin="0.5,0.5" />
+        
+        <Button x:Name="Start" Content="Start"  Margin="672,642,46,106.6" Click="StartRecording" RenderTransformOrigin="0.5,0.5" />
         <TextBox x:Name="textBox_baloonsHitted" HorizontalAlignment="Left" Height="23" Margin="32,253,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="textBoxBaloonPosition" HorizontalAlignment="Left" Height="36" Margin="358,61,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238"/>
         <TextBlock HorizontalAlignment="Left" Margin="601,12,0,0" TextWrapping="Wrap" Text="Hand" VerticalAlignment="Top"/>

@@ -23,22 +23,22 @@ namespace KinectPhysiotherapy
         static public void DrawPoint(JointType jointType, Body body, KinectSensor _sensor, Canvas bodyCanvas)
         {
             Joint joint = body.Joints[jointType];
-            //joint = ScaleTo(joint, bodyCanvas.ActualWidth, bodyCanvas.ActualHeight);
+            joint = ScaleTo(joint, bodyCanvas.ActualWidth, bodyCanvas.ActualHeight);
             if (joint.TrackingState == TrackingState.Tracked)
             {
-                DepthSpacePoint jointCoordinates = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint.Position);
+               // DepthSpacePoint jointCoordinates = _sensor.CoordinateMapper.MapCameraPointToDepthSpace(joint.Position);
 
 
                 Ellipse Circle = new Ellipse() { Width = 20, Height = 20, Fill = new SolidColorBrush(Color.FromArgb(255, 255, 0, 0)) };
 
 
                 bodyCanvas.Children.Add(Circle);
-                //Canvas.SetLeft(Circle, joint.Position.X - Circle.Width/2);
-                //Canvas.SetTop(Circle, joint.Position.Y - Circle.Height/2);
+                Canvas.SetLeft(Circle, joint.Position.X/* - Circle.Width / 2*/);
+                Canvas.SetTop(Circle, joint.Position.Y/* - Circle.Height / 2*/);
 
-                Canvas.SetLeft(Circle, jointCoordinates.X - Circle.Width / 2);
-                Canvas.SetTop(Circle, jointCoordinates.Y - Circle.Height / 2);
-
+                //Canvas.SetLeft(Circle, jointCoordinates.X - Circle.Width / 2);
+                //Canvas.SetTop(Circle, jointCoordinates.Y - Circle.Height / 2);
+                
 
             }
 
@@ -74,7 +74,7 @@ namespace KinectPhysiotherapy
                     StrokeThickness = 8,
                     Stroke = new SolidColorBrush(Colors.Red)
                 };
-
+               
                 bodyCanvas.Children.Add(line);
 
             }

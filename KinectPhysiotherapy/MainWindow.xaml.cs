@@ -94,7 +94,8 @@ namespace KinectPhysiotherapy
 
         private void PhysiotherapistButton1_Click(object sender, RoutedEventArgs e)
         {
-            Main.Content = new PhysiotherapistPage1();
+            Main.Content = new BaloonsDifficultyLevelPage();
+            
         }
     }
 }

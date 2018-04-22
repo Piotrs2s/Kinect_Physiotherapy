@@ -57,9 +57,23 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Baloon.cs" />
+    <Compile Include="BaloonsDifficultyLevelPage.xaml.cs">
+      <DependentUpon>BaloonsDifficultyLevelPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="BaloonsGenerator.cs" />
+    <Compile Include="BaloonsMainPage.xaml.cs">
+      <DependentUpon>BaloonsMainPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="CoordinatesConverter.cs" />
     <Compile Include="SkeletonDrawing.cs" />
+    <Page Include="BaloonsDifficultyLevelPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="BaloonsMainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
