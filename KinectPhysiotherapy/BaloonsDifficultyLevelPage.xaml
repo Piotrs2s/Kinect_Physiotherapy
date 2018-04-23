@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:KinectPhysiotherapy"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="BaloonsDifficultyLevelPage" Height="720" Width="960" Background="LightGray">
+      Title="BaloonsDifficultyLevelPage" MinHeight="720" MinWidth="960" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"  Background="LightGray">
 
     <Grid  Margin="10 0 10 0">
         <Grid.RowDefinitions>
@@ -16,12 +16,14 @@
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <Frame Name="Main" Margin="10,0,10,0" />
-        <TextBlock HorizontalAlignment="Left" Margin="408,330,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Choose  difficulty level" VerticalAlignment="Top" Height="23" Width="123"/>
-        <Button x:Name="baloons_veryEasyButton" Content="Very easy" HorizontalAlignment="Left" Margin="257,357,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="baloons_veryEasyButton_Click"/>
-        <Button x:Name="baloons_easyButton" Content="Easy" HorizontalAlignment="Left" Margin="375,357,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="baloons_easyButton_Click"/>
-        <Button x:Name="baloons_mediumButton" Content="Medium" HorizontalAlignment="Left" Margin="490,357,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="baloons_mediumButton_Click"/>
-        <Button x:Name="baloons_hardButton" Content="Hard" HorizontalAlignment="Left" Margin="599,357,0,0" Grid.Row="1" VerticalAlignment="Top" Width="75" Click="baloons_hardButton_Click"/>
+
+        <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center"   Grid.Row="1" TextWrapping="Wrap" Text="Choose  difficulty level"  Height="23" Width="123"/>
+        <Button x:Name="baloons_veryEasyButton" Content="Very easy" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,300,0" Grid.Row="1"  Width="75" Click="baloons_veryEasyButton_Click"/>
+        <Button x:Name="baloons_easyButton" Content="Easy" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="0,50,100,0" Grid.Row="1"  Width="75" Click="baloons_easyButton_Click"/>
+        <Button x:Name="baloons_mediumButton" Content="Medium" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="100,50,0,0" Grid.Row="1"  Width="75" Click="baloons_mediumButton_Click"/>
+        <Button x:Name="baloons_hardButton" Content="Hard" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="300,50,0,0" Grid.Row="1"  Width="75" Click="baloons_hardButton_Click"/>
+
+        <Frame Name="Main" Grid.RowSpan="2"  NavigationUIVisibility="Hidden" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" />
 
 
     </Grid>

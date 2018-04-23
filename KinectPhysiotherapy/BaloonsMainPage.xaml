@@ -6,37 +6,31 @@
       xmlns:local="clr-namespace:KinectPhysiotherapy"
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
-      Title="BaloonsMainPage" Height="720" Width="960" Background="LightGray">
+      Title="BaloonsMainPage"  MinHeight="720" MinWidth="960" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Background="LightGray">
 
     <Grid>
-        <!--<Grid.RowDefinitions>
+        <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
-        </Grid.RowDefinitions>-->
+        </Grid.RowDefinitions>
 
-        <!-- <Viewbox HorizontalAlignment="Center" RenderTransformOrigin="0.481,0.509" Margin="0,0,0,10" Width="960"/> -->
-        <!--<Viewbox Name="viewBox" Grid.Row="0" HorizontalAlignment="Center" Height="720" Width="960"   Margin="0,0,10,58">-->
-            <!--<Image x:Name="camera" RenderTransformOrigin="0.5,0.5"   Margin="221,96,204,178" Width="512" Height="424"   />-->
-        <Image x:Name="camera" RenderTransformOrigin="0.5,0.5"  Height="720" Width="960"   />
-        <!--</Viewbox>-->
-        <!--Width="512" Height="424"-->
-        <Canvas Name="baloonCanvas" Height="720" Width="960" Margin="0,0,10,58"  RenderTransformOrigin="0.5,0.5" />
-        <Canvas Name="bodyCanvas" Height="720" Width="960" Margin="0,0,10,58" />
 
-        <Button x:Name="Start" Content="Start"  Margin="708,686,10,10" Click="StartRecording" RenderTransformOrigin="0.5,0.5" />
-        <TextBox x:Name="textBox_baloonsHitted" HorizontalAlignment="Left" Height="23" Margin="10,687,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <Image x:Name="camera" RenderTransformOrigin="0.5,0.5"  Height="720" Width="960" HorizontalAlignment="Center" VerticalAlignment="Center"   />
+
+        <Canvas Name="baloonCanvas" Height="720" Width="960"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+        <Canvas Name="bodyCanvas" Height="720" Width="960" HorizontalAlignment="Center" VerticalAlignment="Center" />
+
+        <Button x:Name="Start" Content="Start" Margin="0,0,10,10"  Click="StartRecording"  VerticalAlignment="Bottom" HorizontalAlignment="Right" Width="150" Height="30" />
+
         <TextBox x:Name="textBoxBaloonPosition" HorizontalAlignment="Left" Height="16" Margin="448,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238"/>
         <TextBlock HorizontalAlignment="Left" Margin="60,12,0,0" TextWrapping="Wrap" Text="Hand" VerticalAlignment="Top"/>
         <TextBox x:Name="textBoxHandPosition" HorizontalAlignment="Left" Height="16" Margin="94,12,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="238"/>
         <TextBlock HorizontalAlignment="Left" Margin="382,10,0,0" TextWrapping="Wrap" Text="Last Baloon" VerticalAlignment="Top"/>
-        <TextBox x:Name="textBox_baloonsFloated" HorizontalAlignment="Left" Height="23" Margin="162,687,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <TextBox x:Name="textBox_percent" HorizontalAlignment="Left" Height="23" Margin="323,687,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-
-
-
-
+        <TextBox x:Name="textBox_baloonsHitted" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25"  Width="120" Margin="100,50,0,0" TextWrapping="Wrap" />
+        <TextBox x:Name="textBox_baloonsFloated" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25"  Width="120" Margin="250,50,0,0" TextWrapping="Wrap" />
+        <TextBox x:Name="textBox_percent" HorizontalAlignment="Left" VerticalAlignment="Top" Height="25"  Width="120" Margin="400,50,0,0" TextWrapping="Wrap" />
 
     </Grid>
 </Page>
